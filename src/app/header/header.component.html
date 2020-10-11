@@ -10,16 +10,16 @@
       <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
         <a class="nav-link" routerLink="/">Home</a>
       </li>
-      <li routerLinkActive="active" class="nav-item">
+      <li routerLinkActive="active" class="nav-item" *ngIf="isLoggedIn">
         <a class="nav-link" routerLink="/allposts">All Posts</a>
       </li>
-      <li routerLinkActive="active" class="nav-item">
+      <li routerLinkActive="active" class="nav-item" *ngIf="isLoggedIn">
         <a class="nav-link" routerLink="/following">Following</a>
       </li>
-      <li routerLinkActive="active" class="nav-item">
+      <li routerLinkActive="active" class="nav-item" *ngIf="isLoggedIn">
         <a class="nav-link" routerLink="/favorites">Favorites</a>
       </li>
-      <li routerLinkActive="active" class="nav-item">
+      <li routerLinkActive="active" class="nav-item" *ngIf="isLoggedIn">
         <a class="nav-link" routerLink="/myposts">My Post</a>
       </li>
     </ul>
@@ -29,6 +29,9 @@
       </li>
       <li routerLinkActive="active" class="nav-item">
         <a class="nav-link" routerLink="/signin">Login</a>
+      </li>
+      <li class="nav-item" *ngIf="isLoggedIn">
+        <a class="nav-link">Logout</a>
       </li>
     </ul>
   </div>

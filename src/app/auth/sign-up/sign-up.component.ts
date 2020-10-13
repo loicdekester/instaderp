@@ -23,6 +23,9 @@ export class SignUpComponent implements OnInit {
 
     firebase.auth().createUserWithEmailAndPassword(email, password).then(userData => {
       userData.user.sendEmailVerification();
+      const message = `A verification email has been sent to ${email}. Check your inbox and follow the steps
+         in the verification email to complete your subscription. Once verification is complete, please login to the application`;
+      this.toaster.display('success', message, 4000);
       return firebase.database().ref('users/' + userData.user.uid).set({
         email: email,
         uid: userData.user.uid,

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from "@angular/forms";
+import * as firebase from 'firebase';
+import { ToasterService } from 'src/app/service/toasterService/toaster.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -8,7 +10,7 @@ import { NgForm } from "@angular/forms";
 })
 export class SignUpComponent implements OnInit {
 
-  constructor() { }
+  constructor(private toaster: ToasterService) { }
 
   ngOnInit() {
   }
@@ -19,6 +21,20 @@ export class SignUpComponent implements OnInit {
     const email = form.value.email;
     const password = form.value.password;
 
+    firebase.auth().createUserWithEmailAndPassword(email, password).then(userData => {
+      userData.user.sendEmailVerification();
+      return firebase.database().ref('users/' + userData.user.uid).set({
+        email: email,
+        uid: userData.user.uid,
+        registrationDate: new Date().toString(),
+        name: fullname
+      })
+        .then(() => {
+          firebase.auth().signOut();
+        });
+    }).catch(err => {
+      this.toaster.display('error', err.message, 3000);
+    });
   }
 
 }

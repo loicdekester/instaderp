@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import * as firebase from 'firebase';
 import { MyFireService } from 'src/app/service/myFireService/my-fire.service';
 import { ToasterService } from 'src/app/service/toasterService/toaster.service';
@@ -12,7 +13,7 @@ import { UserService } from 'src/app/service/userService/user.service';
 })
 export class SignInComponent implements OnInit {
 
-  constructor(private toaster: ToasterService, private myFire: MyFireService, private userService: UserService) { }
+  constructor(private toaster: ToasterService, private myFire: MyFireService, private userService: UserService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -32,6 +33,7 @@ export class SignInComponent implements OnInit {
     }).then(userData => {
       if (userData) {
         this.userService.set(userData);
+        this.router.navigate(["/allposts"]);
       }
     }).catch(err => {
       this.toaster.display('error', err.message, 3000);

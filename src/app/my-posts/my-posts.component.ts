@@ -21,6 +21,7 @@ export class MyPostsComponent implements OnInit {
       const file: File = fileList[0];
       this.myFire.uploadFile(file).then(data => {
         this.toaster.display('success', 'Picture Successfully uploaded!!');
+        return this.myFire.handleImageUpload(data);
       })
         .catch(err => {
           this.toaster.display('error', err.message);

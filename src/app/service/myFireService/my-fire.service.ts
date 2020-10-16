@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { resolve } from 'dns';
 import * as firebase from 'firebase';
 import { UserService } from '../userService/user.service';
 
@@ -74,6 +73,10 @@ export class MyFireService {
     updates['/images/' + data.fileName] = imageDetails;
 
     return firebase.database().ref().update(updates);
+  }
+
+  getUserPostsRef(uid) {
+    return firebase.database().ref('myposts').child(uid);
   }
 
 }

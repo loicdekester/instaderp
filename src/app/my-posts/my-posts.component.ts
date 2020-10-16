@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MyFireService } from '../service/myFireService/my-fire.service';
 import { ToasterService } from '../service/toasterService/toaster.service';
 import * as firebase from 'firebase';
@@ -8,9 +8,9 @@ import * as firebase from 'firebase';
   templateUrl: './my-posts.component.html',
   styleUrls: ['./my-posts.component.css']
 })
-export class MyPostsComponent implements OnInit {
+export class MyPostsComponent implements OnInit, OnDestroy {
   personalPostsRef: any;
-  postLists: any[] = [];
+  postList: any[] = [];
 
   constructor(private myFire: MyFireService, private toaster: ToasterService) {
 
@@ -20,7 +20,7 @@ export class MyPostsComponent implements OnInit {
     const uid = firebase.auth().currentUser.uid;
     this.personalPostsRef = this.myFire.getUserPostsRef(uid);
     this.personalPostsRef.on('child_added', data => {
-      this.postLists.push({
+      this.postList.push({
         key: data.key,
         data: data.val()
       });
@@ -41,8 +41,10 @@ export class MyPostsComponent implements OnInit {
           console.log(err);
         });
     }
+  }
 
-
+  ngOnDestroy() {
+    this.personalPostsRef.off();
   }
 
 }

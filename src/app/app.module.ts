@@ -13,6 +13,7 @@ import { HomeComponent } from './home/home.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { ToasterComponent } from './toaster/toaster.component';
+import { ArticleComponent } from './components/article/article.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ToasterComponent } from './toaster/toaster.component';
     SignUpComponent,
     SignInComponent,
     HomeComponent,
-    ToasterComponent
+    ToasterComponent,
+    ArticleComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,13 @@
+<div class="card">
+  <img [src]="defaultImage" class="imgDefaultSize card-img-top mx-auto" alt="img">
+  <div class="card-body">
+    <h5 class="card-title">{{imageData.name}}</h5>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item" *ngIf="imageData.creationDate">Posted on:
+        {{imageData.creationDate | date: 'MM/dd/yy'}}</li>
+      <li class="list-group-item" *ngIf="imageData.uploadedBy && displayPostedBy">Posted by:
+        {{imageData.uploadedBy.name}} </li>
+      <li class="list-group-item" *ngIf="imageData.favoriteCount >= 0"># of Fav: {{imageData.favoriteCount}}</li>
+    </ul>
+  </div>
+</div>

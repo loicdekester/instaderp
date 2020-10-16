@@ -31,12 +31,14 @@ export class MyFireService {
     const fileRef = firebase.storage().ref().child('image/' + fileName)
     const uploadTask = fileRef.put(file);
     return new Promise((resolve, reject) => {
-      uploadTask.on('stateChanged', snapshot => {
+      uploadTask.on('state_changed', snapshot => {
       }, error => {
         reject(error);
-      }, () => {
-        const fileURL = fileRef.getDownloadURL();
-        resolve({ fileName, fileURL })
+      }, async () => {
+        const fileUrl = await fileRef.getDownloadURL().then(downloadUrl => {
+          return downloadUrl;
+        });
+        resolve({ fileName, fileUrl })
       });
     });
   }

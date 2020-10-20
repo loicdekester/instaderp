@@ -9,8 +9,8 @@ import * as firebase from 'firebase';
 export class ArticleComponent implements OnInit {
   @Input() imageName: string;
   @Input() displayPostedBy: boolean = true;
-  displayFavoritesButton: boolean = true;
-  displayFollowButton: boolean = true;
+  @Input() displayFavoritesButton: boolean = true;
+  @Input() displayFollowButton: boolean = true;
   @Output() favoriteClicked = new EventEmitter<any>();
   @Output() followClicked = new EventEmitter<any>();
   defaultImage: string = "http://via.placeholder.com/150x150";

@@ -8,7 +8,7 @@ import { ToasterService } from '../service/toasterService/toaster.service';
   templateUrl: './all-posts.component.html',
   styleUrls: ['./all-posts.component.css']
 })
-export class AllPostsComponent implements OnInit {
+export class AllPostsComponent implements OnInit, OnDestroy {
   allRef: any;
   loadMoreRef: any;
   allPosts: any = [];

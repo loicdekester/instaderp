@@ -1,1 +1,15 @@
-<p>favorites works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="container">
+        <div class="row">
+          <div class="card-deck">
+            <app-article *ngFor="let post of favoriteList" [imageName]="post.name" [displayFollowButton]="false"
+              [displayFavoritesButton]="false">
+            </app-article>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>>

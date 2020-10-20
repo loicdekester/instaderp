@@ -33,7 +33,7 @@ export class SignInComponent implements OnInit {
     }).then(userData => {
       if (userData) {
         this.userService.set(userData);
-        this.router.navigate(["/myposts"]);
+        this.router.navigate(["/allposts"]);
       }
     }).catch(err => {
       this.toaster.display('error', err.message, 3000);

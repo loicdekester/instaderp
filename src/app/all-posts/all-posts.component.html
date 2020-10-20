@@ -9,7 +9,8 @@
       <div class="container">
         <div class="row">
           <div class="card-deck">
-            <app-article *ngFor="let post of allPosts" [imageName]="post.data.name">
+            <app-article *ngFor="let post of allPosts" [imageName]="post.data.name"
+              (favoriteClicked)="onFavoritesClicked($event)" (followClicked)="onFollowClicked($event)">
             </app-article>
           </div>
         </div>

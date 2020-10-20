@@ -70,15 +70,31 @@ export class MyFireService {
     };
 
     const updates = {};
-    updates['/myposts/' + user.uid + "/" + newPersonalPostKey] = personalPostDetails;
-    updates['/allposts/' + allPostKey] = allPostsDetails;
-    updates['/images/' + data.fileName] = imageDetails;
+    updates[`/myposts/${user.uid}/${newPersonalPostKey}`] = personalPostDetails;
+    updates[`/allposts/${allPostKey}`] = allPostsDetails;
+    updates[`/images/${data.fileName}`] = imageDetails;
 
     return firebase.database().ref().update(updates);
   }
 
   getUserPostsRef(uid) {
     return firebase.database().ref('myposts').child(uid);
+  }
+
+  handleFavoriteClicked(imageData) {
+    const uid = firebase.auth().currentUser.uid;
+    const updates = {};
+    updates[`/images/${imageData.name}/oldFavoriteCount`] = imageData.favoriteCount;
+    updates[`/images/${imageData.name}/favoriteCount`] = imageData.favoriteCount + 1;
+    updates[`/favorites/${uid}/${imageData.name}`] = imageData;
+    return firebase.database().ref().update(updates);
+  }
+
+  followUser(user) {
+    const uid = firebase.auth().currentUser.uid;
+    const updates = {};
+    updates[`/follow/${uid}/${user.uploadedBy.uid}`] = true;
+    return firebase.database().ref().update(updates);
   }
 
 }

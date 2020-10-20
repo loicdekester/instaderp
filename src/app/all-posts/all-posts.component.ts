@@ -1,5 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as firebase from 'firebase';
+import { MyFireService } from '../service/myFireService/my-fire.service';
+import { ToasterService } from '../service/toasterService/toaster.service';
 
 @Component({
   selector: 'app-all-posts',
@@ -11,7 +13,7 @@ export class AllPostsComponent implements OnInit {
   loadMoreRef: any;
   allPosts: any = [];
 
-  constructor() { }
+  constructor(private myFire: MyFireService, private toaster: ToasterService) { }
 
   ngOnInit(): void {
     this.allRef = firebase.database().ref('allposts').limitToFirst(3);
@@ -42,8 +44,27 @@ export class AllPostsComponent implements OnInit {
     }
   }
 
+  onFavoritesClicked(imageData) {
+    this.myFire.handleFavoriteClicked(imageData).then(data => {
+      this.toaster.display('success', 'Image added to favorites');
+    }).catch(err => {
+      this.toaster.display('error', 'Error adding image to favorites');
+    });
+  }
+
+  onFollowClicked(imageData) {
+    this.myFire.followUser(imageData).then(data => {
+      this.toaster.display('success', `Following ${imageData.uploadedBy.name}!`);
+    }).catch(err => {
+      this.toaster.display('error', 'Error following User');
+    });
+  }
+
   ngOnDestroy() {
     this.allRef.off();
+    if (this.loadMoreRef) {
+      this.loadMoreRef.off();
+    }
   }
 
 }

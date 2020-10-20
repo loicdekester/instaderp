@@ -9,5 +9,12 @@
         {{imageData.uploadedBy.name}} </li>
       <li class="list-group-item" *ngIf="imageData.favoriteCount >= 0"># of Fav: {{imageData.favoriteCount}}</li>
     </ul>
+    <div>
+      <button class="btn btn-dark" (click)="onFavoritesClicked()" *ngIf="displayFavoritesButton">Add to
+        Favorites</button>
+    </div>
+    <div>
+      <button class="btn btn-dark" (click)="onFollowClicked()" *ngIf="displayFollowButton">Follow User</button>
+    </div>
   </div>
 </div>
